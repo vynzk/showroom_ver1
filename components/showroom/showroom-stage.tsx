@@ -75,7 +75,7 @@ export function ShowroomStage({
   const modelSrc = MODEL_SRC_MAP[model.id] ?? MODEL_SRC_MAP.nammi
 
   return (
-    <div className="relative flex flex-col flex-1 min-h-0 overflow-hidden rounded-2xl glass-panel">
+    <div className="relative flex flex-col flex-1 min-h-0 rounded-2xl glass-panel">
       {/* Top bar with model name and actions */}
       <TopBarActions
         model={model}
@@ -85,7 +85,7 @@ export function ShowroomStage({
       />
 
       {/* ===================== 3D STAGE ===================== */}
-      <div className="relative flex-1 min-h-[300px] md:min-h-[400px]">
+      <div className="relative flex-1 min-h-[300px] lg:min-h-[400px] overflow-hidden">
         {/* Green haze glow behind the 3D model */}
         <div
           className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center"

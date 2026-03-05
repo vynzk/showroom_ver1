@@ -53,7 +53,7 @@ export function SpecDetailPanel({
   const Icon = ICON_MAP[spec.icon] ?? Battery
 
   const content = (
-    <div className="flex flex-col gap-5 p-5 md:p-6">
+    <div className="flex flex-col gap-5 p-5 lg:p-6">
       {/* Header with icon and title */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
