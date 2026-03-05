@@ -105,12 +105,18 @@ interface ModelViewerStageProps {
   activeHotspotId?: string | null
   /** Whether a hotspot has been discovered */
   isDiscovered?: (specId: string) => boolean
+  /** HDRI environment image path */
+  environmentImage?: string
   /** Accent color for hotspot styling */
   accentColor?: string
   /** Glow animation class */
   glowClass?: string
   /** Callback when a hotspot is clicked */
   onHotspotClick?: (specId: string) => void
+  /** Callback when camera is moved (rotate/pan) */
+  onCameraChange?: () => void
+  /** Callback when user zooms (wheel/pinch) */
+  onZoom?: () => void
   /** Callback when model finishes loading */
   onLoad?: () => void
 
@@ -159,9 +165,12 @@ export const ModelViewerStage = forwardRef<ModelViewerStageRef, ModelViewerStage
       hotspots,
       activeHotspotId,
       isDiscovered,
+      environmentImage = 'hdri/wooden_studio_08_4k.hdr',
       accentColor = '#B8FF3D',
       glowClass = '',
       onHotspotClick,
+      onCameraChange,
+      onZoom,
       onLoad,
       initialCameraOrbit = DEFAULT_CAMERA_ORBIT,
       initialTarget = DEFAULT_CAMERA_TARGET,
@@ -197,6 +206,26 @@ export const ModelViewerStage = forwardRef<ModelViewerStageRef, ModelViewerStage
       viewer.addEventListener('load', handleLoad)
       return () => viewer.removeEventListener('load', handleLoad)
     }, [onLoad])
+
+    // ===================== CAMERA CHANGE EVENT =====================
+    useEffect(() => {
+      const viewer = viewerRef.current
+      if (!viewer || !onCameraChange) return
+
+      const handleCameraChange = () => onCameraChange()
+      viewer.addEventListener('camera-change', handleCameraChange, { once: true })
+      return () => viewer.removeEventListener('camera-change', handleCameraChange)
+    }, [onCameraChange])
+
+    // ===================== ZOOM (WHEEL / PINCH) EVENT =====================
+    useEffect(() => {
+      const viewer = viewerRef.current
+      if (!viewer || !onZoom) return
+
+      const handleWheel = () => onZoom()
+      viewer.addEventListener('wheel', handleWheel, { once: true, passive: true })
+      return () => viewer.removeEventListener('wheel', handleWheel)
+    }, [onZoom])
 
     // ===================== IMPERATIVE METHODS =====================
 
@@ -254,12 +283,14 @@ export const ModelViewerStage = forwardRef<ModelViewerStageRef, ModelViewerStage
         ref={viewerRef as React.RefObject<any>}
         src={modelSrc}
         alt={alt}
+        environment-image={environmentImage}
         poster={poster}
         camera-controls
         touch-action="pan-y"
         interaction-prompt="none"
-        shadow-intensity="1"
-        exposure="1"
+        shadow-intensity="5"
+        exposure="3"
+        shadow-softnesss="0.8"
         camera-orbit={initialCameraOrbit}
         camera-target={initialTarget}
         min-camera-orbit={minOrbit}

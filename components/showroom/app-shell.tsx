@@ -52,6 +52,7 @@ import { ModelSelectorDrawer } from './model-selector-drawer'
 import { ShowroomStage } from './showroom-stage'
 import { SpecDetailPanel } from './spec-detail-panel'
 import { ProgressHUD } from './progress-hud'
+import { OnboardingOverlay } from './onboarding-overlay'
 
 export function AppShell() {
   const {
@@ -64,6 +65,14 @@ export function AppShell() {
     totalSpecs,
     isDrawerOpen,
     isDetailOpen,
+    showOnboarding,
+    dismissOnboarding,
+    environmentImage,
+    setEnvironmentImage,
+    markRotated,
+    markZoomed,
+    markChangedLighting,
+    currentTip,
     selectModel,
     openSpec,
     closeDetail,
@@ -90,6 +99,15 @@ export function AppShell() {
             activeSpecId={activeSpecId}
             isDiscovered={isDiscovered}
             onSelectSpec={openSpec}
+            environmentImage={environmentImage}
+            onEnvironmentChange={(hdri) => {
+              setEnvironmentImage(hdri)
+              markChangedLighting()
+            }}
+            onInteraction={(type) => {
+              if (type === 'rotate') markRotated()
+              else if (type === 'zoom') markZoomed()
+            }}
           />
 
           {/* ===================== PROGRESS HUD (floating) ===================== */}
@@ -99,6 +117,7 @@ export function AppShell() {
               total={totalSpecs}
               progressClass={selectedModel.progressClass}
               accentClass={selectedModel.accentClass}
+              tip={currentTip}
             />
           </div>
         </div>
@@ -135,6 +154,9 @@ export function AppShell() {
         onOpenChange={setIsDrawerOpen}
         onSelectModel={selectModel}
       />
+
+      {/* ===================== ONBOARDING OVERLAY ===================== */}
+      {showOnboarding && <OnboardingOverlay onDismiss={dismissOnboarding} />}
     </main>
   )
 }

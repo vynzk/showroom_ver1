@@ -25,10 +25,8 @@ export function ModelSelectorSidebar({ selectedModelId, onSelectModel }: ModelSe
     >
       {/* Brand logo area */}
       <div className="flex items-center gap-2.5 px-2 pb-2">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-secondary">
-          <Car className="h-4 w-4 text-foreground" aria-hidden="true" />
-        </div>
-        <span className="text-sm font-semibold tracking-tight text-foreground">Showroom 3D</span>
+        {/* logo png */}
+        <img src="/logoDongfeng.png" alt="Showroom 3D" className="h-4" />
       </div>
 
       {/* Model cards */}

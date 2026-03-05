@@ -25,6 +25,13 @@ export function useShowroomState() {
   const [discoveredSpecIds, setDiscoveredSpecIds] = useState<Set<string>>(new Set())
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [isDetailOpen, setIsDetailOpen] = useState(false)
+  const [environmentImage, setEnvironmentImage] = useState<string>('hdri/wooden_studio_08_4k.hdr')
+  const [showOnboarding, setShowOnboarding] = useState(true)
+
+  // Interaction milestones
+  const [hasRotated, setHasRotated] = useState(false)
+  const [hasZoomed, setHasZoomed] = useState(false)
+  const [hasChangedLighting, setHasChangedLighting] = useState(false)
 
   /** The currently selected model object */
   const selectedModel = useMemo(
@@ -45,11 +52,24 @@ export function useShowroomState() {
   )
 
   /** Discovery progress for gamification */
-  const discoveryCount = useMemo(() => {
-    return currentSpecs.filter((s) => discoveredSpecIds.has(`${selectedModelId}-${s.id}`)).length
-  }, [currentSpecs, discoveredSpecIds, selectedModelId])
+  const interactionCount = [hasRotated, hasZoomed, hasChangedLighting].filter(Boolean).length
 
-  const totalSpecs = currentSpecs.length
+  const discoveryCount = useMemo(() => {
+    const specCount = currentSpecs.filter((s) => discoveredSpecIds.has(`${selectedModelId}-${s.id}`)).length
+    return specCount + interactionCount
+  }, [currentSpecs, discoveredSpecIds, selectedModelId, interactionCount])
+
+  const totalSpecs = currentSpecs.length + 3 // +3 for rotate, zoom, lighting
+
+  /** Current tip based on next undiscovered interaction */
+  const currentTip = useMemo(() => {
+    if (!hasRotated) return 'Arrastra para rotar el modelo'
+    if (!hasZoomed) return 'Usa el zoom para ver los detalles'
+    if (!hasChangedLighting) return 'Cambia la iluminación del entorno'
+    const undiscoveredSpec = currentSpecs.find((s) => !discoveredSpecIds.has(`${selectedModelId}-${s.id}`))
+    if (undiscoveredSpec) return `Explora: ${undiscoveredSpec.label}`
+    return null
+  }, [hasRotated, hasZoomed, hasChangedLighting, currentSpecs, discoveredSpecIds, selectedModelId])
 
   /** Select a different car model and reset active spec */
   const selectModel = useCallback((modelId: string) => {
@@ -100,6 +120,23 @@ export function useShowroomState() {
     totalSpecs,
     isDrawerOpen,
     isDetailOpen,
+
+    // Onboarding
+    showOnboarding,
+    dismissOnboarding: useCallback(() => setShowOnboarding(false), []),
+
+    // Interaction milestones
+    hasRotated,
+    hasZoomed,
+    hasChangedLighting,
+    markRotated: useCallback(() => setHasRotated(true), []),
+    markZoomed: useCallback(() => setHasZoomed(true), []),
+    markChangedLighting: useCallback(() => setHasChangedLighting(true), []),
+    currentTip,
+
+    // HDRI
+    environmentImage,
+    setEnvironmentImage,
 
     // Actions
     selectModel,

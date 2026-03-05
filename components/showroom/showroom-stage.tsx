@@ -40,6 +40,9 @@ interface ShowroomStageProps {
   activeSpecId: string | null
   isDiscovered: (specId: string) => boolean
   onSelectSpec: (specId: string) => void
+  environmentImage: string
+  onEnvironmentChange: (hdri: string) => void
+  onInteraction?: (type: 'rotate' | 'zoom') => void
 }
 
 export function ShowroomStage({
@@ -48,6 +51,9 @@ export function ShowroomStage({
   activeSpecId,
   isDiscovered,
   onSelectSpec,
+  environmentImage,
+  onEnvironmentChange,
+  onInteraction,
 }: ShowroomStageProps) {
   const viewerRef = useRef<ModelViewerStageRef>(null)
 
@@ -71,20 +77,35 @@ export function ShowroomStage({
   return (
     <div className="relative flex flex-col flex-1 min-h-0 overflow-hidden rounded-2xl glass-panel">
       {/* Top bar with model name and actions */}
-      <TopBarActions model={model} onRecenter={() => viewerRef.current?.resetView()} />
+      <TopBarActions
+        model={model}
+        onRecenter={() => viewerRef.current?.resetView()}
+        environmentImage={environmentImage}
+        onEnvironmentChange={onEnvironmentChange}
+      />
 
       {/* ===================== 3D STAGE ===================== */}
       <div className="relative flex-1 min-h-[300px] md:min-h-[400px]">
+        {/* Green haze glow behind the 3D model */}
+        <div
+          className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center"
+          aria-hidden="true"
+        >
+          <div className="h-[60%] w-[50%] rounded-full bg-[#B8FF3D]/15 blur-[120px]" />
+        </div>
         <ModelViewerStage
           ref={viewerRef}
           modelSrc={modelSrc}
           alt={`Modelo 3D - ${model.name}`}
+          environmentImage={environmentImage}
           hotspots={hotspots}
           activeHotspotId={activeSpecId}
           isDiscovered={isDiscovered}
           accentColor={model.accentColor}
           glowClass={model.glowClass}
           onHotspotClick={onSelectSpec}
+          onCameraChange={() => onInteraction?.('rotate')}
+          onZoom={() => onInteraction?.('zoom')}
         />
       </div>
 
@@ -92,7 +113,7 @@ export function ShowroomStage({
       <div className="absolute bottom-14 right-4 flex flex-col gap-1.5 z-20">
         <button
           type="button"
-          onClick={() => viewerRef.current?.zoomIn()}
+          onClick={() => { viewerRef.current?.zoomIn(); onInteraction?.('zoom') }}
           className="glass-panel flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
           aria-label="Acercar zoom"
         >
@@ -100,7 +121,7 @@ export function ShowroomStage({
         </button>
         <button
           type="button"
-          onClick={() => viewerRef.current?.zoomOut()}
+          onClick={() => { viewerRef.current?.zoomOut(); onInteraction?.('zoom') }}
           className="glass-panel flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
           aria-label="Alejar zoom"
         >
