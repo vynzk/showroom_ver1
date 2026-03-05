@@ -8,60 +8,60 @@
 
 :root {
   /* Nammi brand tokens */
-  --bg-primary: #FFFFFF;
-  --bg-secondary: #F5F7F9;
-  --bg-surface: #FFFFFF;
-  --text-primary: #0F0F10;
-  --text-secondary: #4A4F57;
-  --text-muted: #8A9099;
-  --border-subtle: #E4E7EB;
-  --divider: #ECEFF2;
+  --bg-primary: #0D0F12;
+  --bg-secondary: #14171C;
+  --bg-surface: #1B1F25;
+  --text-primary: #FFFFFF;
+  --text-secondary: #C9CDD3;
+  --text-muted: #8F96A3;
+  --border-subtle: #232832;
+  --divider: #1F242C;
   --accent-electric: #B8FF3D;
   --accent-led: #5CE1E6;
   --success: #2ECC71;
   --warning: #F5A623;
-  --danger: #E74C3C;
+  --danger: #FF5C5C;
 
   /* Shadcn/UI mapped tokens */
-  --background: #FFFFFF;
-  --foreground: #0F0F10;
-  --card: #FFFFFF;
-  --card-foreground: #0F0F10;
-  --popover: #FFFFFF;
-  --popover-foreground: #0F0F10;
+  --background: #0D0F12;
+  --foreground: #FFFFFF;
+  --card: #1B1F25;
+  --card-foreground: #FFFFFF;
+  --popover: #1B1F25;
+  --popover-foreground: #FFFFFF;
   --primary: #B8FF3D;
-  --primary-foreground: #0F0F10;
-  --secondary: #F5F7F9;
-  --secondary-foreground: #4A4F57;
-  --muted: #F5F7F9;
-  --muted-foreground: #8A9099;
+  --primary-foreground: #0D0F12;
+  --secondary: #14171C;
+  --secondary-foreground: #C9CDD3;
+  --muted: #14171C;
+  --muted-foreground: #8F96A3;
   --accent: #5CE1E6;
-  --accent-foreground: #0F0F10;
-  --destructive: #E74C3C;
+  --accent-foreground: #0D0F12;
+  --destructive: #FF5C5C;
   --destructive-foreground: #FFFFFF;
-  --border: #E4E7EB;
-  --input: #ECEFF2;
+  --border: #232832;
+  --input: #1F242C;
   --ring: #B8FF3D;
   --chart-1: #B8FF3D;
   --chart-2: #5CE1E6;
   --chart-3: #2ECC71;
   --chart-4: #F5A623;
-  --chart-5: #E74C3C;
+  --chart-5: #FF5C5C;
   --radius: 0.75rem;
-  --sidebar: #F5F7F9;
-  --sidebar-foreground: #0F0F10;
+  --sidebar: #14171C;
+  --sidebar-foreground: #FFFFFF;
   --sidebar-primary: #B8FF3D;
-  --sidebar-primary-foreground: #0F0F10;
-  --sidebar-accent: #F5F7F9;
-  --sidebar-accent-foreground: #0F0F10;
-  --sidebar-border: #E4E7EB;
+  --sidebar-primary-foreground: #0D0F12;
+  --sidebar-accent: #1B1F25;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #232832;
   --sidebar-ring: #B8FF3D;
 
   /* Showroom-specific tokens */
   --glow-green: #B8FF3D;
   --glow-blue: #5CE1E6;
-  --surface-glass: rgba(255, 255, 255, 0.7);
-  --surface-glass-border: rgba(228, 231, 235, 0.5);
+  --surface-glass: rgba(27, 31, 37, 0.7);
+  --surface-glass-border: rgba(35, 40, 50, 0.5);
 }
 
 @theme inline {
