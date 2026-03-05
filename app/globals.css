@@ -1,0 +1,217 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* ===================== SHOWROOM NAMMI THEME ===================== */
+/* Clean, modern showroom with Nammi brand colors */
+
+:root {
+  /* Nammi brand tokens */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F5F7F9;
+  --bg-surface: #FFFFFF;
+  --text-primary: #0F0F10;
+  --text-secondary: #4A4F57;
+  --text-muted: #8A9099;
+  --border-subtle: #E4E7EB;
+  --divider: #ECEFF2;
+  --accent-electric: #B8FF3D;
+  --accent-led: #5CE1E6;
+  --success: #2ECC71;
+  --warning: #F5A623;
+  --danger: #E74C3C;
+
+  /* Shadcn/UI mapped tokens */
+  --background: #FFFFFF;
+  --foreground: #0F0F10;
+  --card: #FFFFFF;
+  --card-foreground: #0F0F10;
+  --popover: #FFFFFF;
+  --popover-foreground: #0F0F10;
+  --primary: #B8FF3D;
+  --primary-foreground: #0F0F10;
+  --secondary: #F5F7F9;
+  --secondary-foreground: #4A4F57;
+  --muted: #F5F7F9;
+  --muted-foreground: #8A9099;
+  --accent: #5CE1E6;
+  --accent-foreground: #0F0F10;
+  --destructive: #E74C3C;
+  --destructive-foreground: #FFFFFF;
+  --border: #E4E7EB;
+  --input: #ECEFF2;
+  --ring: #B8FF3D;
+  --chart-1: #B8FF3D;
+  --chart-2: #5CE1E6;
+  --chart-3: #2ECC71;
+  --chart-4: #F5A623;
+  --chart-5: #E74C3C;
+  --radius: 0.75rem;
+  --sidebar: #F5F7F9;
+  --sidebar-foreground: #0F0F10;
+  --sidebar-primary: #B8FF3D;
+  --sidebar-primary-foreground: #0F0F10;
+  --sidebar-accent: #F5F7F9;
+  --sidebar-accent-foreground: #0F0F10;
+  --sidebar-border: #E4E7EB;
+  --sidebar-ring: #B8FF3D;
+
+  /* Showroom-specific tokens */
+  --glow-green: #B8FF3D;
+  --glow-blue: #5CE1E6;
+  --surface-glass: rgba(255, 255, 255, 0.7);
+  --surface-glass-border: rgba(228, 231, 235, 0.5);
+}
+
+@theme inline {
+  --font-sans: 'Inter', 'Geist', 'Geist Fallback', sans-serif;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ===================== HOTSPOT FLOAT ANIMATION ===================== */
+
+/* ===================== MODEL-VIEWER HOTSPOT OCCLUSION ===================== */
+/*
+ * When a hotspot is behind the 3D model, model-viewer removes
+ * the "visible" attribute (via data-visibility-attribute="visible").
+ * This CSS hides occluded hotspots so users must rotate to find them.
+ */
+.hotspot-btn:not([data-visible]) {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: scale(0.5) !important;
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.hotspot-btn[data-visible] {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+@keyframes hotspot-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes hotspot-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--glow-green); }
+  50% { box-shadow: 0 0 16px 4px var(--glow-green); }
+}
+
+@keyframes hotspot-pulse-blue {
+  0%, 100% { box-shadow: 0 0 0 0 var(--glow-blue); }
+  50% { box-shadow: 0 0 16px 4px var(--glow-blue); }
+}
+
+@keyframes stage-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+.animate-float {
+  animation: hotspot-float 3s ease-in-out infinite;
+}
+
+.animate-float-delay-1 {
+  animation: hotspot-float 3s ease-in-out 0.3s infinite;
+}
+
+.animate-float-delay-2 {
+  animation: hotspot-float 3s ease-in-out 0.6s infinite;
+}
+
+.animate-float-delay-3 {
+  animation: hotspot-float 3s ease-in-out 0.9s infinite;
+}
+
+.animate-float-delay-4 {
+  animation: hotspot-float 3s ease-in-out 1.2s infinite;
+}
+
+.animate-pulse-glow {
+  animation: hotspot-pulse 2.5s ease-in-out infinite;
+}
+
+.animate-pulse-glow-blue {
+  animation: hotspot-pulse-blue 2.5s ease-in-out infinite;
+}
+
+.animate-stage-glow {
+  animation: stage-glow 4s ease-in-out infinite;
+}
+
+/* ===================== GLASSMORPHISM UTILITY ===================== */
+.glass-panel {
+  background: var(--surface-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--surface-glass-border);
+}
+
+/* ===================== SCROLLBAR STYLING ===================== */
+.showroom-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.showroom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.showroom-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+/* ===================== PROGRESS BAR FILL ===================== */
+.progress-fill-green {
+  background: linear-gradient(90deg, #B8FF3D, #c9ff6a);
+}
+.progress-fill-blue {
+  background: linear-gradient(90deg, #5CE1E6, #8aeaed);
+}

@@ -1,0 +1,105 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Nammi brand tokens */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F5F7F9;
+  --bg-surface: #FFFFFF;
+  --text-primary: #0F0F10;
+  --text-secondary: #4A4F57;
+  --text-muted: #8A9099;
+  --border-subtle: #E4E7EB;
+  --divider: #ECEFF2;
+  --accent-electric: #B8FF3D;
+  --accent-led: #5CE1E6;
+  --success: #2ECC71;
+  --warning: #F5A623;
+  --danger: #E74C3C;
+
+  --background: #FFFFFF;
+  --foreground: #0F0F10;
+  --card: #FFFFFF;
+  --card-foreground: #0F0F10;
+  --popover: #FFFFFF;
+  --popover-foreground: #0F0F10;
+  --primary: #B8FF3D;
+  --primary-foreground: #0F0F10;
+  --secondary: #F5F7F9;
+  --secondary-foreground: #4A4F57;
+  --muted: #F5F7F9;
+  --muted-foreground: #8A9099;
+  --accent: #5CE1E6;
+  --accent-foreground: #0F0F10;
+  --destructive: #E74C3C;
+  --destructive-foreground: #FFFFFF;
+  --border: #E4E7EB;
+  --input: #ECEFF2;
+  --ring: #B8FF3D;
+  --chart-1: #B8FF3D;
+  --chart-2: #5CE1E6;
+  --chart-3: #2ECC71;
+  --chart-4: #F5A623;
+  --chart-5: #E74C3C;
+  --radius: 0.625rem;
+  --sidebar: #F5F7F9;
+  --sidebar-foreground: #0F0F10;
+  --sidebar-primary: #B8FF3D;
+  --sidebar-primary-foreground: #0F0F10;
+  --sidebar-accent: #F5F7F9;
+  --sidebar-accent-foreground: #0F0F10;
+  --sidebar-border: #E4E7EB;
+  --sidebar-ring: #B8FF3D;
+}
+
+@theme inline {
+  --font-sans: 'Geist', 'Geist Fallback';
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
