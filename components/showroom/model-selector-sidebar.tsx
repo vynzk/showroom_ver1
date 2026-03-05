@@ -19,7 +19,7 @@ interface ModelSelectorSidebarProps {
 export function ModelSelectorSidebar({ selectedModelId, onSelectModel }: ModelSelectorSidebarProps) {
   return (
     <aside
-      className="hidden md:flex w-[240px] shrink-0 flex-col gap-4 p-4"
+      className="hidden lg:flex w-[240px] shrink-0 flex-col gap-4 p-4"
       role="navigation"
       aria-label="Selector de modelos"
     >

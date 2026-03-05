@@ -90,7 +90,7 @@ export function AppShell() {
       />
 
       {/* ===================== CENTRAL STAGE + DETAIL ===================== */}
-      <div className="flex flex-1 gap-3 p-3 md:p-4 min-w-0">
+      <div className="flex flex-1 gap-3 p-3 lg:p-4 min-w-0">
         {/* Stage container */}
         <div className="relative flex flex-1 flex-col min-w-0">
           <ShowroomStage
@@ -111,7 +111,7 @@ export function AppShell() {
           />
 
           {/* ===================== PROGRESS HUD (floating) ===================== */}
-          <div className="absolute top-16 right-4 z-30 md:top-16 md:right-6">
+          <div className="absolute top-16 right-4 z-30 lg:top-16 lg:right-6">
             <ProgressHUD
               discovered={discoveryCount}
               total={totalSpecs}
@@ -123,7 +123,7 @@ export function AppShell() {
         </div>
 
         {/* ===================== DESKTOP DETAIL PANEL ===================== */}
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <SpecDetailPanel
             spec={activeSpec}
             model={selectedModel}
@@ -136,7 +136,7 @@ export function AppShell() {
       </div>
 
       {/* ===================== MOBILE DETAIL PANEL (bottom sheet) ===================== */}
-      <div className="md:hidden">
+      <div className="lg:hidden">
         <SpecDetailPanel
           spec={activeSpec}
           model={selectedModel}

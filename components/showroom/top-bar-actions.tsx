@@ -48,7 +48,7 @@ export function TopBarActions({ model, onRecenter, environmentImage, onEnvironme
   }, [hdriOpen])
 
   return (
-    <div className="flex items-center justify-between px-4 py-3 md:px-6">
+    <div className="flex items-center justify-between px-4 py-3 lg:px-6">
       {/* Model name + badge */}
       <div className="flex items-center gap-3">
         <h1 className="text-lg font-semibold text-foreground tracking-tight text-balance">

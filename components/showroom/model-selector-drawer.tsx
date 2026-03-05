@@ -11,7 +11,7 @@
 
 'use client'
 
-import { Car, ChevronUp } from 'lucide-react'
+import { Car } from 'lucide-react'
 import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer'
 import { MODELS } from '@/lib/showroom-data'
 import type { Model } from '@/lib/showroom-data'
@@ -30,7 +30,7 @@ export function ModelSelectorDrawer({
   onSelectModel,
 }: ModelSelectorDrawerProps) {
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <Drawer open={isOpen} onOpenChange={onOpenChange}>
         <DrawerTrigger asChild>
           <button
@@ -39,7 +39,6 @@ export function ModelSelectorDrawer({
             aria-label="Abrir selector de modelos"
           >
             <Car className="h-5 w-5" aria-hidden="true" />
-            <ChevronUp className="absolute -top-0.5 -right-0.5 h-3.5 w-3.5 text-muted-foreground" aria-hidden="true" />
           </button>
         </DrawerTrigger>
         <DrawerContent className="bg-card border-border">

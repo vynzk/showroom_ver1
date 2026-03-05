@@ -224,7 +224,20 @@ export const ModelViewerStage = forwardRef<ModelViewerStageRef, ModelViewerStage
 
       const handleWheel = () => onZoom()
       viewer.addEventListener('wheel', handleWheel, { once: true, passive: true })
-      return () => viewer.removeEventListener('wheel', handleWheel)
+
+      // Detect pinch-to-zoom on touch devices (2+ fingers)
+      const handleTouchMove = (e: TouchEvent) => {
+        if (e.touches.length >= 2) {
+          onZoom()
+          viewer.removeEventListener('touchmove', handleTouchMove)
+        }
+      }
+      viewer.addEventListener('touchmove', handleTouchMove, { passive: true })
+
+      return () => {
+        viewer.removeEventListener('wheel', handleWheel)
+        viewer.removeEventListener('touchmove', handleTouchMove)
+      }
     }, [onZoom])
 
     // ===================== IMPERATIVE METHODS =====================
@@ -286,7 +299,7 @@ export const ModelViewerStage = forwardRef<ModelViewerStageRef, ModelViewerStage
         environment-image={environmentImage}
         poster={poster}
         camera-controls
-        touch-action="pan-y"
+        touch-action="none"
         interaction-prompt="none"
         shadow-intensity="5"
         exposure="3"
